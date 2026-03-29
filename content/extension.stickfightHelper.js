@@ -322,17 +322,16 @@
 
         }
 
-        mousedown(args, util) {
-            const input = args.MOUSEMENU
-            if (input === "any") {
-                const mouse0 = util.ioQuery('mouse', 'getButtonIsDown', [0]);
-                const mouse1 = util.ioQuery('mouse', 'getButtonIsDown', [1]);
-                const mouse2 = util.ioQuery('mouse', 'getButtonIsDown', [2]);
+        // A helper to get the state of a specific button or "any" button
+_checkButtonState(util, buttonArg, ioMethod) {
+    if (buttonArg === 'any') {
+        return [0, 1, 2].some(button => util.ioQuery('mouse', ioMethod, [button]));
+    }
+    return util.ioQuery('mouse', ioMethod, [Number(buttonArg)]);
+}
 
-                return mouse0 || mouse1 || mouse2;
-            } else {
-                return util.ioQuery('mouse', 'getButtonIsDown', [Number(input)]);
-            }
+        mousedown(args, util) {
+            return this._checkButtonState(util, args.MOUSEMENU, 'getIsDown')
         }
 
         setcursorstyle(args) {
