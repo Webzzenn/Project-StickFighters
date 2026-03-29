@@ -1,3 +1,7 @@
+//this extensions purpose is to provide small features that base pm dose not provide without 
+//addings multiple already made extensions, writing my own reduces bloat and stuff.
+//ai was partially used to help with some functionality with the mouse boolean everything else is human wrote. 
+
 (function(Scratch) {
     'use strict';
 
