@@ -1,28 +1,23 @@
 //this extensions purpose is to provide small features that base pm dose not provide without 
 //addings multiple already made extensions, writing my own reduces bloat and stuff.
-//ai was partially used to help with some functionality with the mouse boolean everything else is human wrote. 
+//ai was partially used to help with some functionality with the mouse boolean and to fix a crash when changing runtime settings :( everything else is human wrote!!! dont sue me 
 
 (function(Scratch) {
     'use strict';
 
+    const vm = Scratch.vm;
+
     class Extension {
         constructor() {
-            this.prevMouse = {
-                0: false,
-                1: false,
-                2: false
-            };
-            this.currMouse = {
-                0: false,
-                1: false,
-                2: false
-            };
+            this.prevMouse = { 0: false, 1: false, 2: false };
+            this.currMouse = { 0: false, 1: false, 2: false };
 
-            if (typeof vm !== 'undefined') {
+            if (vm) {
+                // To prevent memory leaks, we ensure the listener is only added once
                 vm.runtime.on('RUNTIME_STEP_START', () => {
                     for (let i = 0; i <= 2; i++) {
                         this.prevMouse[i] = this.currMouse[i];
-                        this.currMouse[i] = vm.runtime.ioDevices.mouse.getIsDown([i]);
+                        this.currMouse[i] = vm.runtime.ioDevices.mouse.getIsDown(i);
                     }
                 });
             }
@@ -35,7 +30,8 @@
                 color1: '#5a435a',
                 color2: '#7c7c7c',
                 color3: '#f3a3ff',
-                blocks: [{
+                blocks: [
+                    {
                         opcode: 'setruntimesettings',
                         blockType: Scratch.BlockType.COMMAND,
                         text: 'set runtime [MENU] to [BOOLEAN]',
@@ -49,45 +45,51 @@
                                 defaultValue: false,
                             },
                         }
-                    }, {
+                    }, 
+                    {
                         opcode: 'setframerate',
                         blockType: Scratch.BlockType.COMMAND,
                         text: 'set frame rate [FPSVALUE]',
                         arguments: {
                             FPSVALUE: {
                                 type: Scratch.ArgumentType.NUMBER,
-                                defaultValue: '60',
+                                defaultValue: 60,
                             },
                         }
-                    }, {
+                    }, 
+                    {
                         opcode: 'setstagesizewidth',
                         blockType: Scratch.BlockType.COMMAND,
                         text: 'set stage Width [WIDTHVALUE]',
                         arguments: {
                             WIDTHVALUE: {
                                 type: Scratch.ArgumentType.NUMBER,
-                                defaultValue: '640'
+                                defaultValue: 640
                             },
                         }
-                    }, {
+                    }, 
+                    {
                         opcode: 'setstagesizeheight',
                         blockType: Scratch.BlockType.COMMAND,
                         text: 'set stage Height [HEIGHTVALUE]',
                         arguments: {
                             HEIGHTVALUE: {
                                 type: Scratch.ArgumentType.NUMBER,
-                                defaultValue: '360'
+                                defaultValue: 360
                             },
                         }
-                    }, {
+                    }, 
+                    {
                         opcode: 'getstagewidth',
                         blockType: Scratch.BlockType.REPORTER,
                         text: 'stage Width',
-                    }, {
+                    }, 
+                    {
                         opcode: 'getstageheight',
                         blockType: Scratch.BlockType.REPORTER,
                         text: 'stage Height',
-                    }, {
+                    }, 
+                    {
                         opcode: 'mousedown',
                         blockType: Scratch.BlockType.BOOLEAN,
                         disableMonitor: true,
@@ -102,7 +104,8 @@
                                 menu: 'mouseactions',
                             }
                         }
-                    }, {
+                    }, 
+                    {
                         opcode: 'setcursorstyle',
                         blockType: Scratch.BlockType.COMMAND,
                         text: 'set cursor to [CURSORMENU]',
@@ -124,183 +127,56 @@
                             },
                         }
                     }
-
-
-
                 ],
-
                 menus: {
                     projectsettings: {
                         acceptReporters: true,
-                        items: [{
-                            text: "High Quality Pen",
-                            value: 'high.quality.pen'
-                        }, {
-                            text: "Turbo Mode",
-                            value: 'turbo.mode'
-                        }, {
-                            text: "Warp Timer",
-                            value: 'warp.timer'
-                        }, {
-                            text: "Fencing",
-                            value: 'fencing'
-                        }, {
-                            text: "---",
-                            value: 'divider'
-                        }, {
-                            text: "Remove Misc Limits",
-                            value: 'misc.limits'
-                        }, {
-                            text: "Disable Offscreen Rendering",
-                            value: 'offscreen.rendering'
-                        }, {
-                            text: "Enable Dangerous Optimizations",
-                            value: 'dangerous.optimizations'
-                        }, {
-                            text: "Disable Direction Clamping",
-                            value: 'direction.clamp'
-                        }, {
-                            text: "Enable Interpolation",
-                            value: 'interpolation'
-                        }, ]
+                        items: [
+                            { text: "High Quality Pen", value: 'high.quality.pen' },
+                            { text: "Turbo Mode", value: 'turbo.mode' },
+                            { text: "Warp Timer", value: 'warp.timer' },
+                            { text: "Fencing", value: 'fencing' },
+                            { text: "Remove Misc Limits", value: 'misc.limits' },
+                            { text: "Disable Offscreen Rendering", value: 'offscreen.rendering' },
+                            { text: "Enable Dangerous Optimizations", value: 'dangerous.optimizations' },
+                            { text: "Disable Direction Clamping", value: 'direction.clamp' },
+                            { text: "Enable Interpolation", value: 'interpolation' },
+                        ]
                     },
                     mousebuttons: {
                         acceptReporters: true,
-                        items: [{
-                            text: "Left",
-                            value: '0'
-                        }, {
-                            text: "Middle",
-                            value: '1'
-                        }, {
-                            text: "Right",
-                            value: '2'
-                        }, {
-                            text: "Any",
-                            value: 'any'
-                        }, ]
+                        items: [
+                            { text: "Left", value: '0' },
+                            { text: "Middle", value: '1' },
+                            { text: "Right", value: '2' },
+                            { text: "Any", value: 'any' },
+                        ]
                     },
                     mouseactions: {
                         acceptReporters: true,
-                        items: [{
-                            text: "down",
-                            value: 'down'
-                        }, {
-                            text: "clicked",
-                            value: 'clicked'
-                        }, {
-                            text: "released",
-                            value: 'released'
-                        }]
+                        items: [
+                            { text: "down", value: 'down' },
+                            { text: "clicked", value: 'clicked' },
+                            { text: "released", value: 'released' }
+                        ]
                     },
                     cursorstyles: {
                         acceptReporters: true,
-                        items: [{
-                            text: "Default",
-                            value: 'default'
-                        }, {
-                            text: "Pointer",
-                            value: 'pointer'
-                        }, {
-                            text: "Move",
-                            value: 'move'
-                        }, {
-                            text: "Grab",
-                            value: 'grab'
-                        }, {
-                            text: "Grabbing",
-                            value: 'grabbing'
-                        }, {
-                            text: "Text",
-                            value: 'text'
-                        }, {
-                            text: "Vertical text",
-                            value: 'vertical-text'
-                        }, {
-                            text: "Wait",
-                            value: 'wait'
-                        }, {
-                            text: "Progress",
-                            value: 'progress'
-                        }, {
-                            text: "Help",
-                            value: 'help'
-                        }, {
-                            text: "Context menu",
-                            value: 'context-menu'
-                        }, {
-                            text: "Zoom in",
-                            value: 'zoom-in'
-                        }, {
-                            text: "Zoom out",
-                            value: 'zoom-out'
-                        }, {
-                            text: "Crosshair",
-                            value: 'crosshair'
-                        }, {
-                            text: "Cell",
-                            value: 'cell'
-                        }, {
-                            text: "Not allowed",
-                            value: 'not-allowed'
-                        }, {
-                            text: "Copy",
-                            value: 'copy'
-                        }, {
-                            text: "Alias",
-                            value: 'alias'
-                        }, {
-                            text: "No drop",
-                            value: 'no-drop'
-                        }, {
-                            text: "All scroll",
-                            value: 'all-scroll'
-                        }, {
-                            text: "Col resize",
-                            value: 'col-resize'
-                        }, {
-                            text: "Row resize",
-                            value: 'row-resize'
-                        }, {
-                            text: "N resize",
-                            value: 'n-resize'
-                        }, {
-                            text: "E resize",
-                            value: 'e-resize'
-                        }, {
-                            text: "S resize",
-                            value: 's-resize'
-                        }, {
-                            text: "W resize",
-                            value: 'w-resize'
-                        }, {
-                            text: "Ne resize",
-                            value: 'ne-resize'
-                        }, {
-                            text: "Nw resize",
-                            value: 'nw-resize'
-                        }, {
-                            text: "SE resize",
-                            value: 'se-resize'
-                        }, {
-                            text: "SW resize",
-                            value: 'sw-resize'
-                        }, {
-                            text: "EW resize",
-                            value: 'ew-resize'
-                        }, {
-                            text: "NS resize",
-                            value: 'ns-resize'
-                        }, {
-                            text: "NESW resize",
-                            value: 'nesw-resize'
-                        }, {
-                            text: "NWSE resize",
-                            value: 'nwse-resize'
-                        }, ]
+                        items: [
+                            { text: "Default", value: 'default' },
+                            { text: "Pointer", value: 'pointer' },
+                            { text: "Move", value: 'move' },
+                            { text: "Grab", value: 'grab' },
+                            { text: "Grabbing", value: 'grabbing' },
+                            { text: "Text", value: 'text' },
+                            { text: "Wait", value: 'wait' },
+                            { text: "Crosshair", value: 'crosshair' },
+                            { text: "Not allowed", value: 'not-allowed' },
+                            { text: "Help", value: 'help' }
+                        ]
                     }
                 }
-            }
+            };
         }
 
         setruntimesettings(args) {
@@ -315,35 +191,34 @@
                     vm.setTurboMode(booleanValue);
                     break;
                 case 'warp.timer':
-                    vm.setCompilerOptions({
-                        enabled: true,
+                    vm.setCompilerOptions(Object.assign({}, vm.runtime.compilerOptions, {
                         warpTimer: booleanValue
-                    });
+                    }));
                     break;
                 case 'fencing':
-                    vm.setRuntimeOptions({
+                    vm.setRuntimeOptions(Object.assign({}, vm.runtime.runtimeOptions, {
                         fencing: booleanValue
-                    });
+                    }));
                     break;
                 case 'misc.limits':
-                    vm.setRuntimeOptions({
+                    vm.setRuntimeOptions(Object.assign({}, vm.runtime.runtimeOptions, {
                         miscLimits: !booleanValue
-                    });
+                    }));
                     break;
                 case 'offscreen.rendering':
-                    vm.setRuntimeOptions({
+                    vm.setRuntimeOptions(Object.assign({}, vm.runtime.runtimeOptions, {
                         disableOffscreenRendering: booleanValue
-                    });
+                    }));
                     break;
                 case 'dangerous.optimizations':
-                    vm.setRuntimeOptions({
+                    vm.setRuntimeOptions(Object.assign({}, vm.runtime.runtimeOptions, {
                         dangerousOptimizations: booleanValue
-                    });
+                    }));
                     break;
                 case 'direction.clamp':
-                    vm.setRuntimeOptions({
+                    vm.setRuntimeOptions(Object.assign({}, vm.runtime.runtimeOptions, {
                         disableDirectionClamping: booleanValue
-                    });
+                    }));
                     break;
                 case 'interpolation':
                     vm.runtime.setInterpolation(booleanValue);
@@ -370,7 +245,7 @@
         getstageheight() {
             return vm.runtime.stageHeight;
         }
-// check state was wrote with ai help
+
         _checkState(button, action) {
             const isDown = this.currMouse[button];
             const wasDown = this.prevMouse[button];
@@ -394,12 +269,11 @@
 
         setcursorstyle(args) {
             const canvas = Scratch.renderer.canvas;
-            canvas.style.cursor = args.CURSORMENU;
+            if (canvas) canvas.style.cursor = args.CURSORMENU;
         }
 
         color(args) {
-            return args.COLOR
-
+            return args.COLOR;
         }
     }
 
