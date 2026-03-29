@@ -73,6 +73,17 @@
                                 acceptReporters: true
                             },
                         }
+                    }, {
+                        opcode: 'setcursorstyle',
+                        blockType: Scratch.BlockType.COMMAND,
+                        text: 'set cursor to [CURSORMENU]',
+                        arguments: {
+                            CURSORMENU: {
+                                type: Scratch.ArgumentType.STRING,
+                                menu: 'cursorstyles',
+                                acceptReporters: true
+                            },
+                        }
                     }
 
                 ],
@@ -129,7 +140,114 @@
 
                         ]
 
-                    }
+                    },
+                    cursorstyles: [{
+                                text: "Default",
+                                value: 'default',
+                            }, {
+                                text: "Pointer",
+                                value: 'pointer',
+                            }, {
+                                text: "Move",
+                                value: 'move',
+                            }, {
+                                text: "Grab",
+                                value: 'grab',
+                            }, {
+                                text: "Grabbing",
+                                value: 'grabbing',
+                            }, {
+                                text: "Text",
+                                value: 'text',
+                            }, {
+                                text: "Vertical text",
+                                value: 'vertical-text',
+                            }, {
+                                text: "Wait",
+                                value: 'wait',
+                            }, {
+                                text: "Progress",
+                                value: 'progress',
+                            }, {
+                                text: "Help",
+                                value: 'help',
+                            }, {
+                                text: "Context menu",
+                                value: 'context-menu',
+                            }, {
+                                text: "Zoom in",
+                                value: 'zoom-in',
+                            }, {
+                                text: "Zoom out",
+                                value: 'zoom-out',
+                            }, {
+                                text: "Crosshair",
+                                value: 'crosshair',
+                            }, {
+                                text: "Cell",
+                                value: 'cell',
+                            }, {
+                                text: "Not allowed",
+                                value: 'not-allowed',
+                            }, {
+                                text: "Copy",
+                                value: 'copy',
+                            }, {
+                                text: "Alias",
+                                value: 'alias',
+                            }, {
+                                text: "No drop",
+                                value: 'no-drop',
+                            }, {
+                                text: "All scroll",
+                                value: 'all-scroll',
+                            }, {
+                                text: "Col resize",
+                                value: 'col-resize',
+                            }, {
+                                text: "Row resize",
+                                value: 'row-resize',
+                            }, {
+                                text: "N resize",
+                                value: 'n-resize',
+                            }, {
+                                text: "E resize",
+                                value: 'e-resize',
+                            }, {
+                                text: "S resize",
+                                value: 's-resize',
+                            }, {
+                                text: "W resize",
+                                value: 'w-resize',
+                            }, {
+                                text: "Ne resize",
+                                value: 'ne-resize',
+                            }, {
+                                text: "Nw resize",
+                                value: 'nw-resize',
+                            }, {
+                                text: "SE resize",
+                                value: 'se-resize',
+                            }, {
+                                text: "SW resize",
+                                value: 'sw-resize',
+                            }, {
+                                text: "EW resize",
+                                value: 'ew-resize',
+                            }, {
+                                text: "NS resize",
+                                value: 'ns-resize',
+                            }, {
+                                text: "NESW resize",
+                                value: 'nesw-resize',
+                            }, {
+                                text: "NWSE resize",
+                                value: 'nwse-resize',
+                            },
+
+
+                        ]
+                        //
                 }
             }
         }
@@ -215,6 +333,12 @@
             } else {
                 return util.ioQuery('mouse', 'getButtonIsDown', [Number(input)]);
             }
+        }
+
+        setcursorstyle(args) {
+            const canvas = Scratch.renderer.canvas;
+            canvas.style.cursor = args.CURSORMENU
+
         }
     }
 
