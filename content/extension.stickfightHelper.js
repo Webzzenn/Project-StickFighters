@@ -370,7 +370,7 @@
         getstageheight() {
             return vm.runtime.stageHeight;
         }
-
+// check state was wrote with ai help
         _checkState(button, action) {
             const isDown = this.currMouse[button];
             const wasDown = this.prevMouse[button];
