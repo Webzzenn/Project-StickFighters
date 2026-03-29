@@ -45,7 +45,7 @@
                     }, {
                         opcode: 'setstagesizeheight',
                         blockType: Scratch.BlockType.COMMAND,
-                        text: 'set stage Height [HIGHTVALUE]',
+                        text: 'set stage Height [HEIGHTVALUE]',
                         arguments: {
                             HEIGHTVALUE: {
                                 type: Scratch.ArgumentType.NUMBER,
