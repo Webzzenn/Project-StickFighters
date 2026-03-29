@@ -3,7 +3,6 @@
 
     class Extension {
         constructor() {
-            // Track mouse states for clicked/released logic
             this.prevMouse = {
                 0: false,
                 1: false,
@@ -15,7 +14,6 @@
                 2: false
             };
 
-            // Update the states every frame
             if (typeof vm !== 'undefined') {
                 vm.runtime.on('RUNTIME_STEP_START', () => {
                     for (let i = 0; i <= 2; i++) {
@@ -34,79 +32,99 @@
                 color2: '#7c7c7c',
                 color3: '#f3a3ff',
                 blocks: [{
-                    opcode: 'setruntimesettings',
-                    blockType: Scratch.BlockType.COMMAND,
-                    text: 'set runtime [MENU] to [BOOLEAN]',
-                    arguments: {
-                        MENU: {
-                            type: Scratch.ArgumentType.STRING,
-                            menu: 'projectsettings',
-                        },
-                        BOOLEAN: {
-                            type: Scratch.ArgumentType.BOOLEAN,
-                        },
-                    }
-                }, {
-                    opcode: 'setframerate',
-                    blockType: Scratch.BlockType.COMMAND,
-                    text: 'set frame rate [FPSVALUE]',
-                    arguments: {
-                        FPSVALUE: {
-                            type: Scratch.ArgumentType.NUMBER,
-                        },
-                    }
-                }, {
-                    opcode: 'setstagesizewidth',
-                    blockType: Scratch.BlockType.COMMAND,
-                    text: 'set stage Width [WIDTHVALUE]',
-                    arguments: {
-                        WIDTHVALUE: {
-                            type: Scratch.ArgumentType.NUMBER,
-                        },
-                    }
-                }, {
-                    opcode: 'setstagesizeheight',
-                    blockType: Scratch.BlockType.COMMAND,
-                    text: 'set stage Height [HEIGHTVALUE]',
-                    arguments: {
-                        HEIGHTVALUE: {
-                            type: Scratch.ArgumentType.NUMBER,
-                        },
-                    }
-                }, {
-                    opcode: 'getstagewidth',
-                    blockType: Scratch.BlockType.REPORTER,
-                    text: 'stage Width',
-                }, {
-                    opcode: 'getstageheight',
-                    blockType: Scratch.BlockType.REPORTER,
-                    text: 'stage Height',
-                }, {
-                    opcode: 'mousedown',
-                    blockType: Scratch.BlockType.BOOLEAN,
-                    disableMonitor: true,
-                    text: 'mouse [MOUSEMENU] [ACTIONMENU]',
-                    arguments: {
-                        MOUSEMENU: {
-                            type: Scratch.ArgumentType.STRING,
-                            menu: 'mousebuttons',
-                        },
-                        ACTIONMENU: {
-                            type: Scratch.ArgumentType.STRING,
-                            menu: 'mouseactions',
+                        opcode: 'setruntimesettings',
+                        blockType: Scratch.BlockType.COMMAND,
+                        text: 'set runtime [MENU] to [BOOLEAN]',
+                        arguments: {
+                            MENU: {
+                                type: Scratch.ArgumentType.STRING,
+                                menu: 'projectsettings',
+                            },
+                            BOOLEAN: {
+                                type: Scratch.ArgumentType.BOOLEAN,
+                                defaultValue: false,
+                            },
+                        }
+                    }, {
+                        opcode: 'setframerate',
+                        blockType: Scratch.BlockType.COMMAND,
+                        text: 'set frame rate [FPSVALUE]',
+                        arguments: {
+                            FPSVALUE: {
+                                type: Scratch.ArgumentType.NUMBER,
+                                defaultValue: '60',
+                            },
+                        }
+                    }, {
+                        opcode: 'setstagesizewidth',
+                        blockType: Scratch.BlockType.COMMAND,
+                        text: 'set stage Width [WIDTHVALUE]',
+                        arguments: {
+                            WIDTHVALUE: {
+                                type: Scratch.ArgumentType.NUMBER,
+                                defaultValue: '640'
+                            },
+                        }
+                    }, {
+                        opcode: 'setstagesizeheight',
+                        blockType: Scratch.BlockType.COMMAND,
+                        text: 'set stage Height [HEIGHTVALUE]',
+                        arguments: {
+                            HEIGHTVALUE: {
+                                type: Scratch.ArgumentType.NUMBER,
+                                defaultValue: '360'
+                            },
+                        }
+                    }, {
+                        opcode: 'getstagewidth',
+                        blockType: Scratch.BlockType.REPORTER,
+                        text: 'stage Width',
+                    }, {
+                        opcode: 'getstageheight',
+                        blockType: Scratch.BlockType.REPORTER,
+                        text: 'stage Height',
+                    }, {
+                        opcode: 'mousedown',
+                        blockType: Scratch.BlockType.BOOLEAN,
+                        disableMonitor: true,
+                        text: 'mouse [MOUSEMENU] [ACTIONMENU]',
+                        arguments: {
+                            MOUSEMENU: {
+                                type: Scratch.ArgumentType.STRING,
+                                menu: 'mousebuttons',
+                            },
+                            ACTIONMENU: {
+                                type: Scratch.ArgumentType.STRING,
+                                menu: 'mouseactions',
+                            }
+                        }
+                    }, {
+                        opcode: 'setcursorstyle',
+                        blockType: Scratch.BlockType.COMMAND,
+                        text: 'set cursor to [CURSORMENU]',
+                        arguments: {
+                            CURSORMENU: {
+                                type: Scratch.ArgumentType.STRING,
+                                menu: 'cursorstyles',
+                            },
+                        }
+                    },
+                    {
+                        opcode: 'color',
+                        blockType: Scratch.BlockType.REPORTER,
+                        text: 'color [COLOR]',
+                        arguments: {
+                            COLOR: {
+                                type: Scratch.ArgumentType.COLOR,
+                                defaultValue: '#ffc300'
+                            },
                         }
                     }
-                }, {
-                    opcode: 'setcursorstyle',
-                    blockType: Scratch.BlockType.COMMAND,
-                    text: 'set cursor to [CURSORMENU]',
-                    arguments: {
-                        CURSORMENU: {
-                            type: Scratch.ArgumentType.STRING,
-                            menu: 'cursorstyles',
-                        },
-                    }
-                }],
+
+
+
+                ],
+
                 menus: {
                     projectsettings: {
                         acceptReporters: true,
@@ -373,6 +391,11 @@
         setcursorstyle(args) {
             const canvas = Scratch.renderer.canvas;
             canvas.style.cursor = args.CURSORMENU;
+        }
+
+        color(args) {
+            return args.COLOR
+
         }
     }
 
