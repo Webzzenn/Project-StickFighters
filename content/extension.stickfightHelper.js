@@ -88,12 +88,10 @@
                             MOUSEMENU: {
                                 type: Scratch.ArgumentType.STRING,
                                 menu: 'mousebuttons',
-                                acceptReporters: true,
                             },
                             ACTIONMENU: {
                                 type: Scratch.ArgumentType.STRING,
                                 menu: 'mouseactions',
-                                acceptReporters: true,
                             }
                         }
                     }, 
