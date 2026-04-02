@@ -1,1 +1,50 @@
+Summary
+Project stickfighters is a platform fighter inspired by video games like "the strongest battlegrounds" , "smash bros" , "stick fight animations"
+the game has some unique mechanics that makes it stand out from other similar projects.
+
+Backend Mechanics
+
+local player, up to 4 devices
+peer to peer multiplayer, 1v1 2v2
+
+controller support
+keyboard support
+
+Gameplay mechanics
+
+moveset Building
+ at the start of each game you'll be able to pick a meele style, 4 abilities, two curses and two wishes.
+
+ Meele Style
+   Meele uses and purpose
+   Meeles are avaliable at all times and have no long cooldown, they are used to start combos and keep your enemy stunned
+   Meeles have a set number of "punches" before having to wait for them to reset, the last meele punch will always do knockback
+  Styles
+
+     an all rounded style,  
+     4 total "punches"
+     about 0.25s per punch
+     reset cooldown: 1 second
+
+     a slower but more powerful style,
+     3 total "punches"
+     0.35s per punch
+     last punch is powerful
+     reset cooldown: 1 second
+
+     a quicker but less powerful style,
+     5 total "punches"
+     0.17s per punch
+     last punch isn't incredibly strong
+     reset cooldown: 1 second
+
+     a mix of slow and strong,
+     5 total "Punches"
+     0.26s for the first 2 punches 0.33s for third, 0.35s for fourth 
+     reset cooldown: 1 second
+
+ Wishes
+    Wishes are essentially passive perks. for example, jump slightly higher when on lower health
+ Curses
+    Curses are the opposite,
 
