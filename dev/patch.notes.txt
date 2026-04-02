@@ -1,0 +1,30 @@
+development
+----------------
+0.00.0
+. added some core systems
+entity system, game initialise and a lot more
+
+0.00.01
+. added camera system
+
+0.00.02
+Wrote a custom extension that combines small features from large extensions into one tiny extension
+helps organise & stuff
+
+‎ 0.00.03
+fixed an issues where stickfighter helper(extension) was causing massive performance issues on project initial load
+
+0.00.04
+made camera system better. fixed math and allowed it to scale based on a default zoom size
+
+0.00.05
+fixed performance bug where pausing a project would cause deltatime to get massive and make entity collision check a million times causing the browser to freak out and disable javascript
+
+0.01.00(BIG)
+rewrote entity system to actually use deltatime properly, its also faster
+added complete local play support
+added controller support
+added action system
+
+0.01.01
+local players now get assigened an input map, this means players will be able to choose the device and controller they want to use.
