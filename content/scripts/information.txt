@@ -1,0 +1,2 @@
+scripts use a custom simple language.
+this game is single threaded and every constant variable can be accessed.
